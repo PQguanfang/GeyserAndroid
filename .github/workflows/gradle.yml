@@ -31,4 +31,4 @@ jobs:
       if: success()
       with:
           name: Geyser Android
-          path: /
+          path: build/
