@@ -27,7 +27,7 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew clean assembleRelease --refresh-dependencies
     - name: Sign Android release
-      uses: r0adkll/sign-android-release@v1
+      uses: r0adkll/sign-android-release@v1.0.3
       with:
         releaseDirectory: app/release
         signingKeyBase64: ${{ secrets.SIGNING_KEY }}
