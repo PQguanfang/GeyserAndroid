@@ -26,9 +26,17 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew clean assembleRelease --refresh-dependencies
+    - name: Sign Android release
+      uses: r0adkll/sign-android-release@v1
+      with:
+        releaseDirectory: app/release
+        signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+        alias: ${{ secrets.ALIAS }}
+        keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+        keyPassword: ${{ secrets.KEY_PASSWORD }}
     - name: Archive artifacts (Geyser Android)
       uses: actions/upload-artifact@v2
       if: success()
       with:
           name: Geyser Android
-          path: app/build/outputs/
+          path: app/release/org.geysermc.app.android-1.1.0.apk
