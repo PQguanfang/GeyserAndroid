@@ -25,7 +25,7 @@ jobs:
     - name: Gradle Command
       uses: eskatos/gradle-command-action@v1.3.3
       with:
-        gradle-version: 6    
+        gradle-version: wrapper
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
