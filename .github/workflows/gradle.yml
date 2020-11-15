@@ -41,4 +41,4 @@ jobs:
       if: success()
       with:
           name: Geyser Android
-          path: app/org.geysermc.app.android-1.1.0.apk
+          path: app/build/outputs/apk/
