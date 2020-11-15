@@ -26,8 +26,8 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew clean assembleRelease --refresh-dependencies
-    - name: Sign Android release
-      uses: r0adkll/sign-android-release@v1.0.3
+    - name: Sign Android Release
+      uses: thomastvedt/sign-android-release@v2.2
       with:
         releaseDirectory: app/release
         signingKeyBase64: ${{ secrets.SIGNING_KEY }}
