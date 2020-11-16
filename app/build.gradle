@@ -65,6 +65,10 @@ android {
 
 repositories {
     maven {
+        url = uri('https://geyserandroid.jfrog.io/artifactory/geyserandroid/')
+    }
+    
+    maven {
         url = uri('https://repo.opencollab.dev/maven-releases/')
     }
 
@@ -141,7 +145,7 @@ dependencies {
     }
 
     // Core Geyser
-    implementation ('com.github.hellohi3654:connector:1.2.0-SNAPSHOT') {
+    implementation ('org.geysermc:connector:1.2.0-SNAPSHOT') {
         exclude group: 'com.nukkitx.fastutil', module:'fastutil-common'
     }
 
