@@ -141,7 +141,7 @@ dependencies {
     }
 
     // Core Geyser
-    implementation ('org.geysermc:connector:1.1.0') {
+    implementation ('com.github.hellohi3654:connector:1.2.0-SNAPSHOT') {
         exclude group: 'com.nukkitx.fastutil', module:'fastutil-common'
     }
 
