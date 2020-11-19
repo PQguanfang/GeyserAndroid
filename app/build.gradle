@@ -83,7 +83,11 @@ repositories {
     }
 
     maven {
-        url = uri('https://oss.sonatype.org/content/repositories/releases/')
+        url = uri('https://oss.sonatype.org/content/repositories/snapshots/')
+    }
+    
+    maven {
+        url = uri('http://repository.ow2.org/nexus/content/repositories/snapshots/')
     }
 
     mavenCentral()
