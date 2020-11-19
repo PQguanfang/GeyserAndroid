@@ -44,4 +44,4 @@ jobs:
       if: success()
       with:
           name: Geyser Android
-          path: app/build/outputs/apk/release/org.geysermc.app.android-1.2.1-unsigned-signed.apk
+          path: app/build/outputs/apk/release/org.geysermc.app.android-1.2.2-unsigned-signed.apk
