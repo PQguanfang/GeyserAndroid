@@ -5,7 +5,7 @@
 
         <Preference
             app:key="version"
-            app:title="Version"
+            app:title="版本号"
             app:summary="" />
 
     </PreferenceCategory>
@@ -14,8 +14,8 @@
 
         <Preference
             app:key="github"
-            app:title="GitHub repo"
-            app:summary="Source code of the app" />
+            app:title="官网"
+            app:summary="立刻访问巫妖王的官网！" />
 
         <Preference
             app:key="trello"
