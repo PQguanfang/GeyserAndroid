@@ -31,6 +31,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -72,6 +73,9 @@ public class ConfigEditorSimpleActivity extends AppCompatActivity {
     private EditText txtPort;
     private Spinner dpdAuthType;
 
+    private TextWatcher txtPortWatcher;
+    private TextWatcher txtAddressWatcher;
+
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +96,6 @@ public class ConfigEditorSimpleActivity extends AppCompatActivity {
 
         Path configPath = AndroidUtils.getStoragePath(getApplicationContext()).resolve("config.yml");
         configFile = configPath.toFile();
-        configChanged = false;
 
         if (!configFile.exists()) {
             // Copy the default config from Geyser
@@ -102,9 +105,7 @@ public class ConfigEditorSimpleActivity extends AppCompatActivity {
                 new AlertDialog.Builder(this)
                         .setTitle(getResources().getString(R.string.config_editor_simple_generate_failed_title))
                         .setMessage(getResources().getString(R.string.config_editor_simple_generate_failed_message))
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                            this.finish();
-                        })
+                        .setPositiveButton(android.R.string.ok, (dialog, which) -> this.finish())
                         .show();
                 return;
             }
@@ -130,9 +131,7 @@ public class ConfigEditorSimpleActivity extends AppCompatActivity {
             new AlertDialog.Builder(this)
                     .setTitle(getResources().getString(R.string.config_editor_failed_title))
                     .setMessage(getResources().getString(R.string.config_editor_failed_message))
-                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                        this.finish();
-                    })
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> this.finish())
                     .show();
             return;
         }
@@ -143,6 +142,9 @@ public class ConfigEditorSimpleActivity extends AppCompatActivity {
     private void parseConfig() throws IOException {
         // Parse the configuration
         configuration = FileUtils.loadConfig(configFile, GeyserAndroidConfiguration.class);
+        GeyserAndroidConfiguration configurationOrig = FileUtils.loadConfig(configFile, GeyserAndroidConfiguration.class);
+
+        configChanged = false;
 
         // Get the available properties from the class
         List<BeanPropertyDefinition> availableProperties = ConfigUtils.getPOJOForClass(GeyserAndroidConfiguration.class);
@@ -153,7 +155,6 @@ public class ConfigEditorSimpleActivity extends AppCompatActivity {
             // Loop the sub class properties
             for (BeanPropertyDefinition subProperty : ConfigUtils.getPOJOForClass(property.getRawPrimaryType())) {
                 try {
-                    Object subConfig = property.getGetter().callOn(configuration);
                     switch (subProperty.getName()) {
                         case "address":
                             String address = configuration.getRemote().getAddress();
@@ -162,19 +163,41 @@ public class ConfigEditorSimpleActivity extends AppCompatActivity {
                                 configChanged = true; // Since the config technically did change
                                 configuration.getRemote().setAddress(getResources().getString(R.string.default_ip));
                             }
+
+                            // Clear the existing before making a new one
+                            if (txtAddressWatcher != null) {
+                                txtAddress.removeTextChangedListener(txtAddressWatcher);
+                            }
+
                             txtAddress.setText(address);
-                            txtAddress.addTextChangedListener(AndroidUtils.generateAfterTextChange((editable) -> {
-                                configChanged = true;
+
+                            txtAddress.addTextChangedListener(txtAddressWatcher = AndroidUtils.generateAfterTextChange((editable) -> {
+                                if (!editable.toString().equals(configurationOrig.getRemote().getAddress())) {
+                                    configChanged = true;
+                                }
 
                                 configuration.getRemote().setAddress(editable.toString());
                             }));
                             break;
                         case "port":
-                            txtPort.setText(String.valueOf(configuration.getRemote().getPort()));
-                            txtPort.addTextChangedListener(AndroidUtils.generateAfterTextChange((editable) -> {
-                                configChanged = true;
+                            // Clear the existing before making a new one
+                            if (txtPortWatcher != null) {
+                                txtPort.removeTextChangedListener(txtPortWatcher);
+                            }
 
-                                configuration.getRemote().setPort(Integer.parseInt(editable.toString()));
+                            txtPort.setText(String.valueOf(configuration.getRemote().getPort()));
+
+                            txtPort.addTextChangedListener(txtPortWatcher = AndroidUtils.generateAfterTextChange((editable) -> {
+                                if (!editable.toString().equals(String.valueOf(configurationOrig.getRemote().getPort()))) {
+                                    configChanged = true;
+                                }
+
+                                // Make sure the port isn't empty and if it is use default
+                                if (editable.toString().isEmpty()) {
+                                    configuration.getRemote().setPort(Integer.parseInt(getResources().getString(R.string.default_port_be)));
+                                } else {
+                                    configuration.getRemote().setPort(Integer.parseInt(editable.toString()));
+                                }
                             }));
                             break;
                         case "auth-type":
@@ -192,7 +215,7 @@ public class ConfigEditorSimpleActivity extends AppCompatActivity {
                         default:
                             break;
                     }
-                } catch (Exception e) { }
+                } catch (Exception ignored) { }
             }
             break;
         }
@@ -200,13 +223,12 @@ public class ConfigEditorSimpleActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // The back button
-            case android.R.id.home:
-                if (checkForChanges()) {
-                    super.onBackPressed();
-                }
-                return true;
+        // The back button
+        if (item.getItemId() == android.R.id.home) {
+            if (checkForChanges()) {
+                super.onBackPressed();
+            }
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -240,9 +262,7 @@ public class ConfigEditorSimpleActivity extends AppCompatActivity {
                 }
             });
 
-            confirmDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getResources().getString(R.string.config_editor_save_discard), (dialog, id) -> {
-                this.finish();
-            });
+            confirmDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getResources().getString(R.string.config_editor_save_discard), (dialog, id) -> this.finish());
 
             confirmDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getResources().getString(android.R.string.cancel), (dialog, id) -> {
                 // Do nothing
@@ -254,5 +274,14 @@ public class ConfigEditorSimpleActivity extends AppCompatActivity {
         } else {
             return true;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        // Try to reparse the config
+        try {
+            parseConfig();
+        } catch (IOException ignored) { }
+        super.onResume();
     }
 }
