@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">Geyser Android</string>
-    <string name="app_site">https://geysermc.org</string>
-    <string name="app_discord">https://discord.geysermc.org</string>
+    <string name="app_name">巫妖王</string>
+    <string name="app_site">https://mc.wdsj.com</string>
+    <string name="app_discord">https://jq.qq.com/?_wv=1027&k=xi9HZa23</string>
 
-    <string name="nav_header_title">Geyser Android</string>
-    <string name="nav_header_subtitle">geysermc.org</string>
+    <string name="nav_header_title">巫妖王</string>
+    <string name="nav_header_subtitle">wdsj.com</string>
 
-    <string name="default_ip">test.geysermc.org</string>
+    <string name="default_ip">wdsj.com</string>
     <string name="default_port_be">19132</string>
     <string name="default_port_je">25565</string>
 </resources>
