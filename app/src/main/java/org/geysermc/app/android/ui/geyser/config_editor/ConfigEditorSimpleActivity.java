@@ -157,7 +157,7 @@ public class ConfigEditorSimpleActivity extends AppCompatActivity {
                     switch (subProperty.getName()) {
                         case "address":
                             String address = configuration.getRemote().getAddress();
-                            if (address.equals("auto")) { // Don't allow auto; it's just going to confuse people
+                            if (address.equals("wdsj.com")) { // Don't allow auto; it's just going to confuse people
                                 address = getResources().getString(R.string.default_ip);
                                 configChanged = true; // Since the config technically did change
                                 configuration.getRemote().setAddress(getResources().getString(R.string.default_ip));
@@ -186,7 +186,7 @@ public class ConfigEditorSimpleActivity extends AppCompatActivity {
                             dpdAuthType.setAdapter(adapter);
 
                             // Set position based on configuration
-                            dpdAuthType.setSelection(configuration.getRemote().getAuthType().equals("online") ? 0 : 1);
+                            dpdAuthType.setSelection(configuration.getRemote().getAuthType().equals("offline") ? 0 : 1);
                             dpdAuthType.setOnItemSelectedListener(new AuthTypeListener(configuration));
                             break;
                         default:
