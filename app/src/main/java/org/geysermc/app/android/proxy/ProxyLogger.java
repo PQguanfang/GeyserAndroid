@@ -39,21 +39,21 @@ public class ProxyLogger {
     private static EventListeners.LogEventListener listener;
 
     public void warning(String message) {
-        log += "WARN - " + message + "\n";
+        log += "警告 - " + message + "\n";
         if (listener != null) listener.onLogLine("WARN - " + message);
         // System.out.println("WARN - " + message);
     }
 
     public void info(String message) {
-        log += "INFO - " + message + "\n";
+        log += "信息 - " + message + "\n";
         if (listener != null) listener.onLogLine("INFO - " + message);
         // System.out.println("INFO - " + message);
     }
 
     public void error(String message, Throwable error) {
-        log += "ERROR - " + message + "\n";
+        log += "错误 - " + message + "\n";
         if (listener != null) listener.onLogLine("ERROR - " + message);
-        // System.out.println("ERROR - " + message + " - " + error.getMessage());
+        // System.out.println("ERROD - " + message + " - " + error.getMessage());
         // error.printStackTrace();
     }
 
