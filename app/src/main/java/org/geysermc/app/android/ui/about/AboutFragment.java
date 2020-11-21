@@ -54,24 +54,24 @@ public class AboutFragment extends PreferenceFragmentCompat {
 
             // Links
             case "github":
-                AndroidUtils.showURL("https://github.com/hellohi3654/GeyserAndroid");
+                AndroidUtils.showURL("https://mc.wdsj.com");
                 return true;
             case "trello":
-                AndroidUtils.showURL("https://trello.com/b/pPJpl9dZ/geyser-android");
+                AndroidUtils.showURL("https://jq.qq.com/?_wv=1027&k=xi9HZa23");
                 return true;
             case "ci":
-                AndroidUtils.showURL("https://ci.rtm516.co.uk/job/GeyserAndroid/");
+                AndroidUtils.showURL("https://jq.qq.com/?_wv=1027&k=wzml94Z5");
                 return true;
 
             // Credits
             case "rtm516":
-                AndroidUtils.showURL("https://rtm516.co.uk/");
+                AndroidUtils.showURL("https://github.com/rtm516/");
                 return true;
             case "arcratist":
-                AndroidUtils.showURL("https://github.com/Arcratist/");
+                AndroidUtils.showURL("https://space.bilibili.com/355026079?share_medium=android&share_source=copy_link&bbid=XZBE306B8D6F1B230EA0823B24335F047F91C&ts=1605959098926");
                 return true;
             case "hellohi3654":
-                AndroidUtils.showURL("https://github.com/Hellohi3654/Geyser/tree/bundabrg-bleeding");
+                AndroidUtils.showURL("https://github.com/GeyserMC/Geyser/");
                 return true;
             case "geyser":
                 AndroidUtils.showURL(getResources().getString(R.string.app_site));
