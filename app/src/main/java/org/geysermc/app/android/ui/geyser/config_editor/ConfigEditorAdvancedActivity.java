@@ -111,7 +111,7 @@ public class ConfigEditorAdvancedActivity extends AppCompatActivity {
                 }
                 return true;
             case R.id.action_config_help:
-                AndroidUtils.showURL("https://github.com/GeyserMC/Geyser/wiki/Understanding-the-Config");
+                AndroidUtils.showURL("https://help.wdsj.com/");
                 return true;
         }
 
