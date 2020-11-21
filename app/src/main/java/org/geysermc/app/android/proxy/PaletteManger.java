@@ -73,7 +73,7 @@ public class PaletteManger {
 
             EMPTY_LEVEL_CHUNK_DATA = outputStream.toByteArray();
         } catch (IOException e) {
-            throw new AssertionError("Unable to generate empty level chunk data");
+            throw new AssertionError("无法生成空的区块");
         }
     }
 
