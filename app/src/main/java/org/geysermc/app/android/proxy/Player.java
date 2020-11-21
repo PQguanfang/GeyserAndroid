@@ -154,7 +154,7 @@ public class Player {
      * Send the player to the another server
      */
     public void connectToServer(String address, int port) {
-        ProxyServer.getInstance().getProxyLogger().info("Sending server transfer packet to " + displayName);
+        ProxyServer.getInstance().getProxyLogger().info("正在发送服务器数据包给 " + displayName);
 
         TransferPacket transferPacket = new TransferPacket();
         transferPacket.setAddress(address);
