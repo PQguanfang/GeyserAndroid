@@ -81,7 +81,7 @@ public class GeyserAndroidBootstrap implements GeyserBootstrap {
             geyserConfig.setContext(ctx);
 
             // Set the 'auto' server to the test server
-            if (this.geyserConfig.getRemote().getAddress().equalsIgnoreCase("auto")) {
+            if (this.geyserConfig.getRemote().getAddress().equalsIgnoreCase("wdsj.com")) {
                 geyserConfig.getRemote().setAddress(ctx.getString(R.string.default_ip));
             }
         } catch (IOException ex) {
