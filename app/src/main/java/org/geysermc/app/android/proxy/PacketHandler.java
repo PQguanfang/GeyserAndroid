@@ -61,7 +61,7 @@ public class PacketHandler implements BedrockPacketHandler {
 
     public void disconnect(DisconnectReason reason) {
         if (player != null) {
-            masterServer.getProxyLogger().info(player.getDisplayName() + " has disconnected from the master server (" + reason + ")");
+            masterServer.getProxyLogger().info(player.getDisplayName() + " 与主服务器断开连接 (" + reason + ")");
             masterServer.getPlayers().remove(player.getXuid());
         }
     }
@@ -88,13 +88,13 @@ public class PacketHandler implements BedrockPacketHandler {
         try {
             rawChainData = OBJECT_MAPPER.readTree(packet.getChainData().toByteArray());
         } catch (IOException e) {
-            throw new AssertionError("Unable to read chain data!");
+            throw new AssertionError("无法读取链数据!");
         }
 
         // Get the parsed chain data
         JsonNode chainData = rawChainData.get("chain");
         if (chainData.getNodeType() != JsonNodeType.ARRAY) {
-            throw new AssertionError("Invalid chain data!");
+            throw new AssertionError("无效的链数据!");
         }
 
         try {
@@ -107,7 +107,7 @@ public class PacketHandler implements BedrockPacketHandler {
 
             // Check the identityPublicKey is there
             if (payload.get("identityPublicKey").getNodeType() != JsonNodeType.STRING) {
-                throw new AssertionError("Missing identity public key!");
+                throw new AssertionError("无效的识别公钥!");
             }
 
             // Create an ECPublicKey from the identityPublicKey
@@ -118,7 +118,7 @@ public class PacketHandler implements BedrockPacketHandler {
             if (skinData.verify(new DefaultJWSVerifierFactory().createJWSVerifier(skinData.getHeader(), identityPublicKey))) {
                 // Make sure the client sent over the username, xuid and other info
                 if (payload.get("extraData").getNodeType() != JsonNodeType.OBJECT) {
-                    throw new AssertionError("Missing client data");
+                    throw new AssertionError("缺少客户端数据");
                 }
 
                 // Fetch the client data
@@ -137,12 +137,12 @@ public class PacketHandler implements BedrockPacketHandler {
                 ResourcePacksInfoPacket resourcePacksInfo = new ResourcePacksInfoPacket();
                 session.sendPacket(resourcePacksInfo);
             } else {
-                throw new AssertionError("Invalid identity public key!");
+                throw new AssertionError("无效的识别公钥!");
             }
         } catch (Exception e) {
             // Disconnect the client
             session.disconnect("disconnectionScreen.internalError.cantConnect");
-            throw new AssertionError("Failed to login", e);
+            throw new AssertionError("登录失败", e);
         }
 
         return false;
