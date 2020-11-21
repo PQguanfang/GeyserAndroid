@@ -19,13 +19,13 @@
 
         <Preference
             app:key="trello"
-            app:title="Trello board"
-            app:summary="The todo list and planned feature list" />
+            app:title="QQ群"
+            app:summary="立刻加入巫妖王玩家QQ交流群！" />
 
         <Preference
             app:key="ci"
-            app:title="CI"
-            app:summary="The build server for the app" />
+            app:title="巫妖王●神奇宝贝"
+            app:summary="立即了解巫妖王●神奇宝贝分服！" />
 
     </PreferenceCategory>
 
@@ -34,17 +34,17 @@
         <Preference
             app:key="rtm516"
             app:title="rtm516"
-            app:summary="Work on the core porting and base app" />
+            app:summary="本软件原开发者，是重要的代码贡献者" />
 
         <Preference
             app:key="arcratist"
-            app:title="Arcratist (Brett Smith)"
-            app:summary="Helping debug and support older Android versions" />
+            app:title="PQguanfang"
+            app:summary="负责本软件的定制化制作，是巫妖王服务器的制作者之一" />
 
         <Preference
             app:key="geyser"
-            app:title="GeyserMC Team"
-            app:summary="Development of the App" />
+            app:title="GeyserMC团队"
+            app:summary="本软件核心开发技术的提供者" />
 
     </PreferenceCategory>
 
