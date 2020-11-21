@@ -53,22 +53,22 @@ public class GeyserAndroidLogger implements org.geysermc.connector.GeyserLogger,
 
     @Override
     public void severe(String message) {
-        printConsole("SEVERE - " + message);
+        printConsole("服务器 - " + message);
     }
 
     @Override
     public void severe(String message, Throwable error) {
-        printConsole("SEVERE - " + message + "\n" + getStackTrace(error));
+        printConsole("服务器 - " + message + "\n" + getStackTrace(error));
     }
 
     @Override
     public void error(String message) {
-        printConsole("ERROR - " + message);
+        printConsole("错误 - " + message);
     }
 
     @Override
     public void error(String message, Throwable error) {
-        printConsole("ERROR - " + message + "\n" + getStackTrace(error));
+        printConsole("错误 - " + message + "\n" + getStackTrace(error));
     }
 
     private String getStackTrace(Throwable error) {
@@ -81,12 +81,12 @@ public class GeyserAndroidLogger implements org.geysermc.connector.GeyserLogger,
 
     @Override
     public void warning(String message) {
-        printConsole("WARN - " + message);
+        printConsole("警告 - " + message);
     }
 
     @Override
     public void info(String message) {
-        printConsole("INFO - " + message);
+        printConsole("信息 - " + message);
     }
 
     @Override
