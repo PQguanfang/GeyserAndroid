@@ -111,14 +111,14 @@ public class ProxyServer {
     }
 
     private void start(int port) {
-        proxyLogger.info("Starting...");
+        proxyLogger.info("启动中...");
 
         InetSocketAddress bindAddress = new InetSocketAddress("0.0.0.0", port);
         bdServer = new BedrockServer(bindAddress);
 
         bdPong = new BedrockPong();
         bdPong.setEdition("MCPE");
-        bdPong.setMotd("LAN Proxy");
+        bdPong.setMotd("巫妖王");
         bdPong.setPlayerCount(0);
         bdPong.setMaximumPlayerCount(1337);
         bdPong.setGameType("Survival");
@@ -145,16 +145,16 @@ public class ProxyServer {
 
         // Start server up
         bdServer.bind().join();
-        proxyLogger.info("Server started on 0.0.0.0:" + port);
+        proxyLogger.info("服务器已启动在 0.0.0.0:" + port);
     }
 
     public void shutdown() {
-        proxyLogger.info("Shutting down!");
+        proxyLogger.info("关闭中!");
         shuttingDown = true;
 
         bdServer.close();
         generalThreadPool.shutdown();
         this.instance = null;
-        proxyLogger.info("Successfully shutdown!");
+        proxyLogger.info("成功关闭!");
     }
 }
