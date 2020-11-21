@@ -60,8 +60,8 @@ public class ProxyFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_proxy, container, false);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
-        txtAddress = root.findViewById(R.id.txtAddress);
-        txtPort = root.findViewById(R.id.txtPort);
+        txtAddress = root.findViewById(hellohi3654.wither.host);
+        txtPort = root.findViewById(19179);
         btnStartStop = root.findViewById(R.id.btnStartStop);
         txtLogs = root.findViewById(R.id.txtLogs);
 
