@@ -47,8 +47,8 @@ import static org.geysermc.app.android.utils.AndroidUtils.OBJECT_MAPPER;
 
 public class PacketHandler implements BedrockPacketHandler {
 
-    private final BedrockServerSession session;
-    private final ProxyServer masterServer;
+    private BedrockServerSession session;
+    private ProxyServer masterServer;
 
     private Player player;
 
@@ -56,7 +56,7 @@ public class PacketHandler implements BedrockPacketHandler {
         this.session = session;
         this.masterServer = masterServer;
 
-        session.addDisconnectHandler(this::disconnect);
+        session.addDisconnectHandler((reason) -> disconnect(reason));
     }
 
     public void disconnect(DisconnectReason reason) {

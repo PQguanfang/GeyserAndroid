@@ -84,8 +84,8 @@ public class GeyserService extends Service {
         createNotificationChannel();
         startForeground(NOTIFCATION_ID, notification);
 
-        GeyserAndroidBootstrap.getOnDisableListeners().add(this::stopSelf);
         bootstrap = new GeyserAndroidBootstrap();
+        GeyserAndroidBootstrap.getOnDisableListeners().add(this::stopSelf);
     }
 
     @Override

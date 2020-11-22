@@ -51,11 +51,11 @@ import lombok.Getter;
 @Getter
 public class Player {
 
-    private final String xuid;
-    private final UUID identity;
-    private final String displayName;
+    private String xuid;
+    private UUID identity;
+    private String displayName;
 
-    private final BedrockServerSession session;
+    private BedrockServerSession session;
 
     public Player(JsonNode extraData, BedrockServerSession session) {
         this.xuid = extraData.get("XUID").asText();

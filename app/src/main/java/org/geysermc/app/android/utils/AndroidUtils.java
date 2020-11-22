@@ -102,9 +102,10 @@ public class AndroidUtils {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             StringBuilder stringBuilder = new StringBuilder();
-            String line;
+            String line = null;
             String ls = System.getProperty("line.separator");
-            while ((line = reader.readLine()) != null) {
+            while (true) {
+                if (!((line = reader.readLine()) != null)) break;
                 stringBuilder.append(line);
                 stringBuilder.append(ls);
             }
@@ -140,11 +141,10 @@ public class AndroidUtils {
 
         // Get the current storage preference and change the path accordingly
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
-        if ("external".equals(preferences.getString("geyser_storage", "internal"))) {
+        if (preferences.getString("geyser_storage", "internal").equals("external")) {
             storageDir = ctx.getExternalFilesDir("");
         }
 
-        assert storageDir != null;
         return Paths.get(storageDir.getPath());
     }
 

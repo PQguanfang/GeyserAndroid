@@ -42,8 +42,7 @@
         app:layout_constraintEnd_toStartOf="@+id/txtPort"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblAddress"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/lblAddress" />
 
     <EditText
         android:id="@+id/txtPort"
@@ -55,8 +54,7 @@
         android:hint="@string/default_port_be"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblPort"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/lblPort" />
 
     <Button
         android:id="@+id/btnStartStop"

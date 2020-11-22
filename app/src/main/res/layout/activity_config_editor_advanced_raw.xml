@@ -13,11 +13,10 @@
         android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
         android:ems="10"
-        android:gravity="top|start"
+        android:gravity="top|left"
         android:inputType="textMultiLine"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

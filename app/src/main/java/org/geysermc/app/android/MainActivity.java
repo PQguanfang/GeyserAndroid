@@ -72,20 +72,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Setup the theme
         String theme = PreferenceManager.getDefaultSharedPreferences(getContext()).getString("theme", "system");
-        if (theme != null) {
-            switch (theme) {
-                case "dark":
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    break;
+        switch (theme) {
+            case "dark":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
 
-                case "light":
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    break;
+            case "light":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                break;
 
-                default:
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                    break;
-            }
+            default:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                break;
         }
 
         // Setup the action bar
@@ -97,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_proxy, R.id.nav_geyser)
-                .setOpenableLayout(drawer)
+                .setDrawerLayout(drawer)
                 .build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
@@ -149,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void setNavigationViewListener() {
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -167,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         // Pass the select even onto the nav ui
-        boolean handled = NavigationUI.onNavDestinationSelected(item, navController);
+        Boolean handled = NavigationUI.onNavDestinationSelected(item, navController);
 
         // Close the drawer if it was handled
         if (handled) {

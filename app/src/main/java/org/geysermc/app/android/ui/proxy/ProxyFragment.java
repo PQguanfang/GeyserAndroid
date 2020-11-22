@@ -59,7 +59,7 @@ public class ProxyFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_proxy, container, false);
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         txtAddress = root.findViewById(R.id.txtAddress);
         txtPort = root.findViewById(R.id.txtPort);
         btnStartStop = root.findViewById(R.id.btnStartStop);
@@ -92,10 +92,14 @@ public class ProxyFragment extends Fragment {
         }
 
         // Update the preference when the user has finished changing
-        txtAddress.addTextChangedListener(AndroidUtils.generateAfterTextChange((editable) -> sharedPreferences.edit().putString("proxy_address", editable.toString()).apply()));
+        txtAddress.addTextChangedListener(AndroidUtils.generateAfterTextChange((editable) -> {
+            sharedPreferences.edit().putString("proxy_address", editable.toString()).apply();
+        }));
 
         // Update the preference when the user has finished changing
-        txtPort.addTextChangedListener(AndroidUtils.generateAfterTextChange((editable) -> sharedPreferences.edit().putString("proxy_port", editable.toString()).apply()));
+        txtPort.addTextChangedListener(AndroidUtils.generateAfterTextChange((editable) -> {
+            sharedPreferences.edit().putString("proxy_port", editable.toString()).apply();
+        }));
 
         btnStartStop.setOnClickListener(v -> {
             Button self = (Button) v;
@@ -141,28 +145,34 @@ public class ProxyFragment extends Fragment {
                     System.out.println(AndroidUtils.purgeColorCodes(line));
                 }
 
-                AndroidUtils.runOnUiThread(getActivity(), () -> txtLogs.append(AndroidUtils.purgeColorCodes(line) + "\n"));
+                AndroidUtils.runOnUiThread(getActivity(), () -> {
+                    txtLogs.append(AndroidUtils.purgeColorCodes(line) + "\n");
+                });
             }
         });
 
         // When the server is disabled toggle the button
-        ProxyServer.getOnDisableListeners().add(() -> AndroidUtils.runOnUiThread(getActivity(), () -> {
-            btnStartStop.setText(container.getResources().getString(R.string.proxy_start));
-            txtAddress.setEnabled(true);
-            txtPort.setEnabled(true);
-        }));
-
-        // When the server has started and its failed status
-        ProxyService.setListener((failed) -> AndroidUtils.runOnUiThread(getActivity(), () -> {
-            if (failed) {
+        ProxyServer.getOnDisableListeners().add(() -> {
+            AndroidUtils.runOnUiThread(getActivity(), () -> {
                 btnStartStop.setText(container.getResources().getString(R.string.proxy_start));
-                btnStartStop.setEnabled(true);
                 txtAddress.setEnabled(true);
                 txtPort.setEnabled(true);
-            } else {
-                btnStartStop.setText(container.getResources().getString(R.string.proxy_stop));
-                btnStartStop.setEnabled(true);
-            }
-        }));
+            });
+        });
+
+        // When the server has started and its failed status
+        ProxyService.setListener((failed) -> {
+            AndroidUtils.runOnUiThread(getActivity(), () -> {
+                if (failed) {
+                    btnStartStop.setText(container.getResources().getString(R.string.proxy_start));
+                    btnStartStop.setEnabled(true);
+                    txtAddress.setEnabled(true);
+                    txtPort.setEnabled(true);
+                } else {
+                    btnStartStop.setText(container.getResources().getString(R.string.proxy_stop));
+                    btnStartStop.setEnabled(true);
+                }
+            });
+        });
     }
 }

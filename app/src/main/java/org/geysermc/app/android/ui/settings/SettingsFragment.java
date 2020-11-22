@@ -49,23 +49,23 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         Preference configReset = findPreference("geyser_reset_config");
         configReset.setOnPreferenceClickListener(preference -> {
-            File configFile = AndroidUtils.getStoragePath(requireContext()).resolve("config.yml").toFile();
+            File configFile = AndroidUtils.getStoragePath(getContext()).resolve("config.yml").toFile();
             if (configFile.exists()) {
                 if (configFile.delete()) {
-                    new AlertDialog.Builder(requireContext())
+                    new AlertDialog.Builder(getContext())
                             .setTitle(getResources().getString(R.string.settings_reset_config_success_title))
                             .setMessage(getResources().getString(R.string.settings_reset_config_success_message))
                             .setPositiveButton(android.R.string.ok, null)
                             .show();
                 } else {
-                    new AlertDialog.Builder(requireContext())
+                    new AlertDialog.Builder(getContext())
                             .setTitle(getResources().getString(R.string.settings_reset_config_failed_title))
                             .setMessage(getResources().getString(R.string.settings_reset_config_failed_message))
                             .setPositiveButton(android.R.string.ok, null)
                             .show();
                 }
             } else {
-                new AlertDialog.Builder(requireContext())
+                new AlertDialog.Builder(getContext())
                         .setTitle(getResources().getString(R.string.settings_reset_config_missing_title))
                         .setMessage(getResources().getString(R.string.settings_reset_config_missing_message))
                         .setPositiveButton(android.R.string.ok, null)
@@ -76,12 +76,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         Preference userAuthsReset = findPreference("geyser_reset_user_auths");
         userAuthsReset.setOnPreferenceClickListener(preference -> {
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-            if (!("{}".equals(sharedPreferences.getString("geyser_user_auths", "{}")))) {
+            if (!sharedPreferences.getString("geyser_user_auths", "{}").equals("{}")) {
                 sharedPreferences.edit().putString("geyser_user_auths", "{}").apply();
 
-                new AlertDialog.Builder(requireContext())
+                new AlertDialog.Builder(getContext())
                         .setTitle(getResources().getString(R.string.settings_reset_user_auths_success_title))
                         .setMessage(getResources().getString(R.string.settings_reset_user_auths_success_message))
                         .setPositiveButton(android.R.string.ok, null)
@@ -96,10 +96,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             return true;
         });
 
-        PreferenceManager.getDefaultSharedPreferences(requireContext()).registerOnSharedPreferenceChangeListener((sharedPreferences, key) -> {
+        PreferenceManager.getDefaultSharedPreferences(getContext()).registerOnSharedPreferenceChangeListener((sharedPreferences, key) -> {
             if (key.equals("theme")) {
                 String theme = sharedPreferences.getString(key, "system");
-                assert theme != null;
                 switch (theme) {
                     case "dark":
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);

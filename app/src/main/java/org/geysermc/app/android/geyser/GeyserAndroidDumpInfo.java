@@ -37,8 +37,8 @@ import lombok.Getter;
 @Getter
 public class GeyserAndroidDumpInfo extends BootstrapDumpInfo {
 
-    private final AndroidInfo androidInfo;
-    private final AppInfo appInfo;
+    private AndroidInfo androidInfo;
+    private AppInfo appInfo;
 
     public GeyserAndroidDumpInfo(Context ctx) {
         super();
@@ -48,12 +48,12 @@ public class GeyserAndroidDumpInfo extends BootstrapDumpInfo {
     }
 
     @Getter
-    private static class AndroidInfo {
+    private class AndroidInfo {
 
-        public final String androidVersion;
-        public final int androidAPIVersion;
-        public final String deviceManufacturer;
-        public final String deviceModel;
+        public String androidVersion;
+        public int androidAPIVersion;
+        public String deviceManufacturer;
+        public String deviceModel;
 
         private AndroidInfo() {
             androidVersion = Build.VERSION.RELEASE;
@@ -64,7 +64,7 @@ public class GeyserAndroidDumpInfo extends BootstrapDumpInfo {
     }
 
     @Getter
-    private static class AppInfo {
+    private class AppInfo {
 
         public long versionCode = 0;
         public String versionName = "Unknown";
@@ -75,7 +75,7 @@ public class GeyserAndroidDumpInfo extends BootstrapDumpInfo {
                 PackageInfo packageInfo = ctx.getPackageManager().getPackageInfo(ctx.getPackageName(), 0);
                 versionCode = packageInfo.versionCode;
                 versionName = packageInfo.versionName;
-            } catch (PackageManager.NameNotFoundException ignored) { }
+            } catch (PackageManager.NameNotFoundException e) { }
         }
     }
 }

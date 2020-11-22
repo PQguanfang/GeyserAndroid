@@ -41,7 +41,6 @@ import java.net.URL;
  * This class is a facade used by Geyser because
  * ImageIO does not exist on Android.
  */
-@SuppressWarnings({"unused", "RedundantSuppression"})
 public class ImageIO {
 
     public static BufferedImage read(URL input) throws IOException {
@@ -49,7 +48,7 @@ public class ImageIO {
             throw new IllegalArgumentException("input == null!");
         }
 
-        InputStream inputStream;
+        InputStream inputStream = null;
         try {
             inputStream = input.openStream();
         } catch (IOException e) {
@@ -75,14 +74,13 @@ public class ImageIO {
             throw new IllegalArgumentException("input == null!");
         }
 
-//        if (input.available() == 0) {
-//            return null;
-//        }
+        if (input.available() == 0) {
+            //return null;
+        }
 
         return new BufferedImage(BitmapFactory.decodeStream(input));
     }
 
-    @SuppressWarnings("SameReturnValue")
     public static boolean write(RenderedImage image, String format, File file) throws IOException {
         if (!format.equals("png")) {
             throw new IllegalArgumentException("ImageIO.write format must be png!");

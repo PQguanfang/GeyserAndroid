@@ -28,8 +28,7 @@
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblAddress"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/lblAddress" />
 
     <TextView
         android:id="@+id/lblPort"
@@ -53,8 +52,7 @@
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblPort"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/lblPort" />
 
     <TextView
         android:id="@+id/lblAuthType"
