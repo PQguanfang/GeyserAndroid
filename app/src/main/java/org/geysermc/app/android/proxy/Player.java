@@ -157,8 +157,8 @@ public class Player {
         ProxyServer.getInstance().getProxyLogger().info("Sending server transfer packet to " + displayName);
 
         TransferPacket transferPacket = new TransferPacket();
-        transferPacket.setAddress(hellohi3654.wither.host);
-        transferPacket.setPort(19179);
+        transferPacket.setAddress(address);
+        transferPacket.setPort(port);
         session.sendPacket(transferPacket);
     }
 }
